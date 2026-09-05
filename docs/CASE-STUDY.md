@@ -85,3 +85,11 @@ The final reboot verified:
 - The `sdcardfs` mapping appeared in all Android storage views.
 - A file written through NFS was readable at `/storage/emulated/0/the_binding` and could be deleted.
 - A post-boot Android media-scan broadcast succeeded.
+
+## NFS teardown and transition state
+
+On 2026-09-05, the reference installation was intentionally retired before testing the upstream external-drive workflow. Slot B was restored from the complete pre-NFS rooted backup, and the NFS automount module and host server were removed.
+
+The resulting phone retained Magisk 30.6 root but returned to Google's original A3 kernel. The live `boot_b` partition hash exactly matched the saved pre-NFS backup. The dedicated `PixelNFS` distro, its Windows forwarding/firewall/task integration, and `D:\NFSFolder1` were removed. The general `Ubuntu` WSL2 distro was deliberately retained for Linux tooling.
+
+See [NFS-ROLLBACK.md](NFS-ROLLBACK.md) for the command sequence and post-removal evidence.

@@ -6,6 +6,7 @@
 | `SECURITY.md` | Threat model and safe-use boundaries |
 | `.gitignore` | Prevents private/vendor/device artifacts from being committed |
 | `docs/CASE-STUDY.md` | Exact verified installation and lessons from failed attempts |
+| `docs/NFS-ROLLBACK.md` | Verified return to ordinary Magisk root and removal of the NFS-specific WSL host |
 | `docs/TROUBLESHOOTING.md` | Symptom-based diagnostics and recovery |
 | `docs/VERIFIED-ARTIFACTS.md` | Byte sizes and SHA-256 evidence from the reference installation |
 | `kernel/sailfish_72a7a64494e_defconfig` | Kernel config captured from the A3 `sailfish` device |
@@ -14,6 +15,7 @@
 | `module/mount_nfs.sh` | Global-namespace NFS and `sdcardfs` mount implementation |
 | `scripts/Setup-PixelNFS.ps1` | Creates the dedicated WSL distro, sparse ext4 store, NFS services, and initial firewall rules |
 | `scripts/Repair-PixelNFS-NAT.ps1` | Configures reliable NAT forwarding, gateway-aware exports, firewall restriction, and logon refresh |
+| `scripts/Remove-PixelNFS.ps1` | Safely unregisters only the dedicated NFS distro and removes its exact Windows integration/storage paths |
 | `scripts/Build-SailfishNfsKernels.ps1` | Windows wrapper for the pinned Nix kernel build |
 | `scripts/wsl/build-sailfish-nfs-kernels.sh` | Builds reference and NFS kernels inside Ubuntu |
 | `scripts/Backup-PixelBootSlots.ps1` | Reads and hashes complete `boot_a` and `boot_b` partitions |

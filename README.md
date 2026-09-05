@@ -4,6 +4,9 @@ This guide documents a verified end-to-end setup for a first-generation Google P
 
 It was developed while following and extending [master-hax/pixel-backup-gang](https://github.com/master-hax/pixel-backup-gang). The exact upstream revision used was `d91c366eabf44e852e66d88afcebf16a85dc27e4`.
 
+> [!NOTE]
+> On 2026-09-05, the reference phone was returned to Magisk 30.6 root on Google's original A3 kernel and the NFS-specific phone/Windows components were removed. The verified teardown and transition boundary are documented in [docs/NFS-ROLLBACK.md](docs/NFS-ROLLBACK.md). The historical NFS procedure remains here as a reproducible case study.
+
 > [!CAUTION]
 > This is an advanced, destructive procedure for an end-of-life phone. Unlocking wipes the device. Flashing the wrong image can make it unbootable. NFSv3 is unencrypted and must remain on a trusted LAN. Read [SECURITY.md](SECURITY.md) and prepare a verified rollback image before flashing a custom kernel.
 
@@ -47,6 +50,7 @@ Do not blindly reuse these boot artifacts on another build. Verify `ro.product.d
 ├── docs/
 │   ├── CASE-STUDY.md
 │   ├── FILE-INVENTORY.md
+│   ├── NFS-ROLLBACK.md
 │   ├── PUBLISHING-CHECKLIST.md
 │   ├── TROUBLESHOOTING.md
 │   └── VERIFIED-ARTIFACTS.md
@@ -64,6 +68,7 @@ Do not blindly reuse these boot artifacts on another build. Verify `ro.product.d
     ├── Manual-Mount.ps1
     ├── Repack-NfsBoot.ps1
     ├── Repair-PixelNFS-NAT.ps1
+    ├── Remove-PixelNFS.ps1
     ├── Restore-PixelBootSlot.ps1
     ├── Setup-PixelNFS.ps1
     ├── Verify-PixelNfs.ps1
@@ -378,6 +383,7 @@ Directly replacing `DCIM` is risky: it can hide locally captured photos, confuse
 ## Recovery and maintenance
 
 - If the phone fails to boot, use [Restore-PixelBootSlot.ps1](scripts/Restore-PixelBootSlot.ps1).
+- To retire the dedicated Windows/WSL server after restoring a non-NFS boot image, use [Remove-PixelNFS.ps1](scripts/Remove-PixelNFS.ps1) from Administrator PowerShell. Read [the rollback record](docs/NFS-ROLLBACK.md) first.
 - If the laptop was off for more than the automount retry window, start the server and reboot the Pixel or run [Manual-Mount.ps1](scripts/Manual-Mount.ps1).
 - If the WSL address changes and mounting fails, rerun [Repair-PixelNFS-NAT.ps1](scripts/Repair-PixelNFS-NAT.ps1).
 - Check module logs with `adb shell su -c "dmesg | grep pixel-nfs"`.

@@ -19,6 +19,8 @@ These hashes document one successful installation on a Google Pixel `sailfish`, 
 
 The 32 MiB boot-partition ceiling is 33,554,432 bytes. The final image had 1,366,742 bytes of headroom.
 
+After the NFS teardown on 2026-09-05, the live `/dev/block/by-name/boot_b` hash was `9884B5828187746F56A9DDB4131B9078F1FC84D82E30F7E3BC62AED14BF5AB5D`, exactly matching the complete pre-NFS `boot_b` backup above. Magisk 30.6 root remained functional on Google's original A3 kernel.
+
 Upstream `pixel-backup-gang` revision used: `d91c366eabf44e852e66d88afcebf16a85dc27e4`.
 
 Google kernel source revision used by the upstream Nix expression: `72a7a64494e033f2213c9701dbf137d277bf2026`.
