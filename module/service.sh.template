@@ -1,0 +1,26 @@
+#!/system/bin/sh
+exec >>/dev/kmsg 2>&1
+
+log() { echo "pixel-nfs: service: $*"; }
+attempt=0
+
+until [ "$(getprop sys.boot_completed)" = "1" ] && \
+      [ -d /mnt/runtime/write/emulated/0 ] && \
+      /data/adb/magisk/busybox nc -z -w 1 __NFS_SERVER__ 2049 >/dev/null 2>&1; do
+  attempt=$((attempt + 1))
+  if [ "$attempt" -ge 120 ]; then
+    log "server or Android storage unavailable after 120 seconds"
+    exit 1
+  fi
+  sleep 1
+done
+
+log "readiness checks passed"
+MODDIR=${0%/*}
+sh "$MODDIR/mount_nfs.sh" __NFS_SERVER__ __NFS_EXPORT__
+
+sleep 15
+am broadcast \
+  -a android.intent.action.MEDIA_SCANNER_SCAN_FILE \
+  -d file:///storage/emulated/0/the_binding/ \
+  || log "media-scan broadcast failed; the mount is still usable"

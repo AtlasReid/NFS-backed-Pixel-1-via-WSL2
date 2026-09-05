@@ -1,0 +1,6 @@
+id=pixel_nfs_automount
+name=Pixel 1 NFS automount
+version=v1
+versionCode=1
+author=YOUR_NAME
+description=Mounts __NFS_SERVER__:__NFS_EXPORT__ into Android internal storage at boot

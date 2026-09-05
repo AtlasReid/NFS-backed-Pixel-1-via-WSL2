@@ -1,0 +1,31 @@
+# Device/vendor artifacts: do not publish or commit these.
+artifacts/
+*.img
+*.zip
+*.apk
+*.tar
+*.tar.gz
+*.log
+*.vhd
+*.vhdx
+*.raw
+*.lz4-dtb
+*.config.gz
+
+# Nix and local build state
+result
+result-*
+.direnv/
+
+# Credentials and local overrides
+.env
+*.secret
+credentials*
+local-config.*
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
